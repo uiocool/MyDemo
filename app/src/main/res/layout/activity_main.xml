@@ -7,10 +7,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="56dp">
 
         <TextView
+            android:id="@+id/txt_test"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:gravity="center"
@@ -18,31 +18,37 @@
 
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:id="@+id/txt_commend"
+            style="@style/tab_menu_item"
             android:drawableTop="@drawable/ic_commend"
+            android:background="@drawable/background_color"
+            android:textColor="@drawable/text_color"
             android:text="推荐"/>
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:id="@+id/txt_plate"
+            style="@style/tab_menu_item"
             android:drawableTop="@drawable/ic_plate"
+            android:background="@drawable/background_color"
+            android:textColor="@drawable/text_color"
             android:text="板块"/>
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:id="@+id/txt_mine"
+            style="@style/tab_menu_item"
             android:drawableTop="@drawable/ic_mine"
+            android:background="@drawable/background_color"
+            android:textColor="@drawable/text_color"
             android:text="我的"/>
 
 
