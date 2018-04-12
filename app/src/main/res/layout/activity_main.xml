@@ -5,19 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp">
-
-        <TextView
-            android:id="@+id/txt_test"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:gravity="center"
-            android:text="Hello World!" />
-
-    </LinearLayout>
-
     <FrameLayout
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
@@ -32,21 +19,28 @@
         <TextView
             android:id="@+id/txt_commend"
             style="@style/tab_menu_item"
-            android:drawableTop="@drawable/ic_commend"
+            android:drawableTop="@drawable/commend_color"
             android:background="@drawable/background_color"
             android:textColor="@drawable/text_color"
             android:text="推荐"/>
         <TextView
             android:id="@+id/txt_plate"
             style="@style/tab_menu_item"
-            android:drawableTop="@drawable/ic_plate"
+            android:drawableTop="@drawable/plate_color"
             android:background="@drawable/background_color"
             android:textColor="@drawable/text_color"
             android:text="板块"/>
         <TextView
+            android:id="@+id/txt_nearby"
+            style="@style/tab_menu_item"
+            android:drawableTop="@drawable/nearby_color"
+            android:background="@drawable/background_color"
+            android:textColor="@drawable/text_color"
+            android:text="附近"/>
+        <TextView
             android:id="@+id/txt_mine"
             style="@style/tab_menu_item"
-            android:drawableTop="@drawable/ic_mine"
+            android:drawableTop="@drawable/mine_color"
             android:background="@drawable/background_color"
             android:textColor="@drawable/text_color"
             android:text="我的"/>
