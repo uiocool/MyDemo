@@ -17,7 +17,6 @@ import com.example.administrator.mydemo.ui.plate.PlateFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView txt_test;
     private TextView txt_commend;
     private TextView txt_plate;
     private TextView txt_nearby;
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private  void bindViews(){
-        txt_test = (TextView) findViewById(R.id.txt_test);
         txt_commend = (TextView) findViewById(R.id.txt_commend);
         txt_plate = (TextView) findViewById(R.id.txt_plate);
         txt_nearby = (TextView)findViewById(R.id.txt_nearby);
