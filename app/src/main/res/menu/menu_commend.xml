@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/i1"
+        android:title="地理位置"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item android:id="@+id/i2"
+        android:title="信息类别"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+    <item android:id="@+id/i3"
+        android:title="价格"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+    <item android:id="@+id/i4"
+        android:title="时间"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+</menu>

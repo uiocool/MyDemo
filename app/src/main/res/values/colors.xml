@@ -8,4 +8,5 @@
     <color name="text">#000000</color>
     <color name="gray">#F0F0F0</color>
     <color name="login_button">#FF3030</color>
+    <color name="hint">#CDC1C5</color>
 </resources>

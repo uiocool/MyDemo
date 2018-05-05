@@ -3,17 +3,31 @@ package com.example.administrator.mydemo;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.baidu.mapapi.SDKInitializer;
+import com.example.administrator.mydemo.commend.ListViewAdapter;
+import com.example.administrator.mydemo.entity.TestData;
 import com.example.administrator.mydemo.ui.commend.CommendFragment;
+import com.example.administrator.mydemo.ui.commend.OfferFragment;
+import com.example.administrator.mydemo.ui.commend.RequireFragment;
 import com.example.administrator.mydemo.ui.mine.MineFragment;
 import com.example.administrator.mydemo.ui.nearby.NearbyFragment;
 import com.example.administrator.mydemo.ui.plate.PlateFragment;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -27,13 +41,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PlateFragment plate;
     private NearbyFragment nearby;
     private MineFragment mine;
-
     // 管理器
     private FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
+        //注意该方法要再setContentView方法之前实现
+        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
         fm = getFragmentManager();
         bindViews();
@@ -66,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(plate != null) fragmentTransaction.hide(plate);
         if(nearby != null) fragmentTransaction.hide(nearby);
         if(mine != null) fragmentTransaction.hide(mine);
+   //     if(require != null) fragmentTransaction.hide(require);
+   //     if(offer != null) fragmentTransaction.hide(offer);
     }
 
     @Override
@@ -79,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(commend == null){
                     commend = new CommendFragment();
                     fTransaction.add(R.id.fl_content, commend);
+                    plate.onStop();
                 }
                 fTransaction.show(commend);
                 break;
@@ -89,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     plate = new PlateFragment();
                     fTransaction.add(R.id.fl_content, plate);
                 }
+                if(commend != null) commend.onStop();
                 fTransaction.show(plate);
                 break;
             case R.id.txt_nearby:
@@ -111,5 +131,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         fTransaction.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        int id = getIntent().getIntExtra("id", -1);
+        if(id == 4){
+            FragmentTransaction fTransaction = fm.beginTransaction();
+            hideAllFragment(fTransaction);
+            setSelected();
+            txt_mine.setSelected(true);
+            if(mine == null){
+                mine = new MineFragment();
+                fTransaction.add(R.id.fl_content, mine);
+            }
+            fTransaction.show(mine);
+            fTransaction.commit();
+        }
+        super.onResume();
     }
 }
