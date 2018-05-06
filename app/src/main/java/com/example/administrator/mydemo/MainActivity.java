@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(plate != null) fragmentTransaction.hide(plate);
         if(nearby != null) fragmentTransaction.hide(nearby);
         if(mine != null) fragmentTransaction.hide(mine);
-   //     if(require != null) fragmentTransaction.hide(require);
-   //     if(offer != null) fragmentTransaction.hide(offer);
     }
 
     @Override

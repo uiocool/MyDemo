@@ -6,6 +6,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,4 +30,15 @@ public class JsonUtil {
         return list;
     }
 
+    public static boolean IsJson(String json){
+        boolean b = false;
+        JsonParser parser = new JsonParser();
+        try {
+            JsonArray jsonArray = parser.parse(json).getAsJsonArray();
+            b = true;
+        }catch (Exception e){
+            b = false;
+        }
+        return  b;
+    }
 }

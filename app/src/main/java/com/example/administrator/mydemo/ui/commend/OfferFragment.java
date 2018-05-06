@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.administrator.mydemo.MainActivity;
 import com.example.administrator.mydemo.R;
+import com.example.administrator.mydemo.TestOkHttp;
 import com.example.administrator.mydemo.commend.ListViewAdapter;
 import com.example.administrator.mydemo.entity.TestData;
 import com.example.administrator.mydemo.ui.mine.RegisterActivity;
@@ -38,17 +39,23 @@ public class OfferFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
- //       TextView t = (TextView)getView().findViewById(R.id.offer);
-
+        TestOkHttp t = new TestOkHttp();
+        String s = t.getAsynHttp();
         List<TestData> td = null;
-        listView = (ListView)getView().findViewById(R.id.list_view);
+        if(JsonUtil.IsJson(s)){
+             td = JsonUtil.TestJson(s);
+        }else{
+             td = getData();
+        }
+
+        listView = (ListView)getView().findViewById(R.id.list_offer);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(), "点击事件"+position+" "+id, Toast.LENGTH_LONG).show();
             }
         });
-        List<TestData> list = getData();
+        List<TestData> list = td;
         lv = new ListViewAdapter(list,getActivity());
         listView.setAdapter(lv);
 
