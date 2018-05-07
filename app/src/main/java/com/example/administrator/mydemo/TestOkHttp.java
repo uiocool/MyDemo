@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.StrictMode;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class TestOkHttp {
     private Request.Builder builder;
     private Handler handler;
     private Context context;
-    public static String str = null;
+
     public void getSyncHttp(){
         new Thread(new Runnable() {
             @Override
@@ -62,6 +63,16 @@ public class TestOkHttp {
     }
 
     public String getAsynHttp(){
+        final String[] str = {null};
+        final Handler mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                str[0] = msg.obj.toString();
+                System.out.println("Handler : " + str[0]);
+            }
+        };
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -85,13 +96,19 @@ public class TestOkHttp {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        str = response.body().string();
-                        System.out.println(str);
+                        str[0] = response.body().string();
+                        System.out.println("hjmt : " + str[0]);
+                        Message message = new Message();
+                        message.obj = str[0];
+                        mHandler.sendMessage(message);
+//                        Looper.loop();
                     }
                 });
             }
         }).start();
-        return str;
+
+        System.out.println(str[0]);
+        return str[0];
     }
 }
 

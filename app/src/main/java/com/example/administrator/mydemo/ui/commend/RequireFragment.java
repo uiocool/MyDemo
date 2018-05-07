@@ -2,6 +2,8 @@ package com.example.administrator.mydemo.ui.commend;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +16,17 @@ import android.widget.Toast;
 import com.example.administrator.mydemo.R;
 import com.example.administrator.mydemo.commend.ListViewAdapter;
 import com.example.administrator.mydemo.entity.TestData;
+import com.example.administrator.mydemo.util.JsonUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class RequireFragment extends Fragment {
 
@@ -44,6 +54,70 @@ public class RequireFragment extends Fragment {
         List<TestData> list = getData();
         lv = new ListViewAdapter(list,getActivity());
         listView.setAdapter(lv);
+    }
+
+    private void initData(){
+        final Handler mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                String s = msg.obj.toString();
+                List<TestData> td = null;
+                if(JsonUtil.IsJson(s)){
+                    td = JsonUtil.TestJson(s);
+                    System.out.println("success");
+                }else{
+                    td = getData();
+                    System.out.println("fail");
+                }
+                List<TestData> list = td;
+                lv = new ListViewAdapter(list,getActivity());
+                listView.setAdapter(lv);
+            }
+        };
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //创建Message对象
+                final Message message = new Message();
+                //创建okHttpClient对象
+                OkHttpClient mOkHttpClient = new OkHttpClient();
+                //url
+                //      String url = "http://47.98.127.30:8080/Test/Servers?username=GR&password=8888";
+                String url = "http://47.98.127.30:8080/Test/find";
+                //创建一个Request
+                final Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+                //new call
+                Call mCall = mOkHttpClient.newCall(request);
+                //请求加入调度
+                mCall.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        System.out.println("3");
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+
+                        message.obj = response.body().string();
+                        mHandler.sendMessage(message);
+                    }
+                });
+            }
+        }).start();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden){
+
+        }else{
+            initData();
+        }
     }
 
     public  ArrayList<TestData> getData(){
