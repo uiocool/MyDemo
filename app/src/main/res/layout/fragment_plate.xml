@@ -12,17 +12,24 @@
             android:id="@+id/plate_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="问答"
+            android:text="板块"
             android:gravity="center"
             android:textColor="@color/text"
             android:textSize="20dp" />
     </LinearLayout>
-    <!-- 分割线 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.8"
         android:background="@color/gray">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="信息发布"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="@color/blue"
+            android:textStyle="italic"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,11 +54,11 @@
                     android:layout_weight="1"
                     android:gravity="center">
                     <ImageView
-                        android:id="@+id/iv1"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:id="@+id/pl_iv1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:src="@drawable/one"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -63,7 +70,7 @@
                         android:layout_weight="3.1"
                         android:text="寻求帮助"
                         android:gravity="center"
-                        android:textSize="25dp"/>
+                        android:textSize="25dp" />
                 </LinearLayout>
             </LinearLayout>
             <!-- 分割线 -->
@@ -86,9 +93,9 @@
                     android:layout_weight="1"
                     android:gravity="center">
                     <ImageView
-                        android:id="@+id/iv2"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:id="@+id/pl_iv2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:src="@drawable/two"
                         android:layout_gravity="center"/>
                 </LinearLayout>
@@ -125,9 +132,9 @@
                     android:layout_weight="1"
                     android:gravity="center">
                     <ImageView
-                        android:id="@+id/iv3"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:id="@+id/pl_iv3"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:src="@drawable/three"
                         android:layout_gravity="center"/>
                 </LinearLayout>

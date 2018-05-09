@@ -1,6 +1,7 @@
 package com.example.administrator.mydemo.ui.plate;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -26,6 +27,7 @@ import okhttp3.Response;
 import okhttp3.Call;
 import com.example.administrator.mydemo.R;
 import com.example.administrator.mydemo.TestOkHttp;
+import com.example.administrator.mydemo.UserApplication;
 import com.example.administrator.mydemo.entity.TestData;
 import com.example.administrator.mydemo.util.JsonUtil;
 
@@ -34,7 +36,7 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 
-public class PlateFragment extends Fragment {
+public class PlateFragment extends Fragment implements View.OnClickListener{
 
     private LinearLayout plate_1;
     private LinearLayout plate_2;
@@ -44,11 +46,11 @@ public class PlateFragment extends Fragment {
     private LinearLayout plate_6;
     private LinearLayout plate_7;
 
-
+    private UserApplication app;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+  //      setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -60,41 +62,13 @@ public class PlateFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //强制解决不能在主线程执行http请求的问题
- /*       StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
 
-       TextView tv = (TextView)getView().findViewById(R.id.json);
+        app =  UserApplication.getInstance();
+        bindViews();
 
-        OkHttpClient client = new OkHttpClient();
-        String url = "http://47.98.127.30:8080/Test/FindServlet";   //47.98.127.30
-        String username = "GR";
-        String password = "8888";
-        try {
-            Request request = new Request.Builder()
-                       .url(url)
-                       .build();
+    }
 
-            Response response = client.newCall(request).execute();
-            s = response.body().string();
-            List<TestData> list = JsonUtil.TestJson(s);
-            tv.setText("");
-            for(int i=0; i<list.size(); i++){
-                tv.append(list.get(i).toString());
-                tv.append("\n");
-            }
-            if(response.isSuccessful()){
-                Toast.makeText(getActivity(), response.body().string(), Toast.LENGTH_LONG).show();
-            }else {
-                Toast.makeText(getActivity(), "fail", Toast.LENGTH_LONG).show();
-            }
-        }catch (Exception e){
-               Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
-        }*/
-
-        ImageView iv1 = (ImageView) getView().findViewById(R.id.iv1);
-        TextView pt = (TextView) getView().findViewById(R.id.plate_title);
-
+    private void bindViews(){
         plate_1 = (LinearLayout) getView().findViewById(R.id.plate_1);
         plate_2 = (LinearLayout) getView().findViewById(R.id.plate_2);
         plate_3 = (LinearLayout) getView().findViewById(R.id.plate_3);
@@ -102,6 +76,41 @@ public class PlateFragment extends Fragment {
         plate_5 = (LinearLayout) getView().findViewById(R.id.plate_5);
         plate_6 = (LinearLayout) getView().findViewById(R.id.plate_6);
         plate_7 = (LinearLayout) getView().findViewById(R.id.plate_7);
+
+        plate_1.setOnClickListener(this);
+        plate_2.setOnClickListener(this);
+        plate_3.setOnClickListener(this);
+        plate_4.setOnClickListener(this);
+        plate_5.setOnClickListener(this);
+        plate_6.setOnClickListener(this);
+        plate_7.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent1 = new Intent(getActivity(), DemandAddActivity.class);
+        Intent intent2 = new Intent(getActivity(), MyDemandActivity.class);
+        switch (v.getId()){
+            case R.id.plate_1:
+                intent1.putExtra("id", 0);
+                startActivity(intent1);
+                break;
+            case R.id.plate_2:
+                intent1.putExtra("id", 1);
+                startActivity(intent1);
+                break;
+            case R.id.plate_3:
+                startActivity(intent2);
+                break;
+            case R.id.plate_4:
+                break;
+            case R.id.plate_5:
+                break;
+            case R.id.plate_6:
+                break;
+            case R.id.plate_7:
+                break;
+        }
     }
 }
 

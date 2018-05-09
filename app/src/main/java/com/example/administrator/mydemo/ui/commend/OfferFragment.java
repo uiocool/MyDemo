@@ -18,6 +18,7 @@ import com.example.administrator.mydemo.MainActivity;
 import com.example.administrator.mydemo.R;
 import com.example.administrator.mydemo.TestOkHttp;
 import com.example.administrator.mydemo.commend.ListViewAdapter;
+import com.example.administrator.mydemo.entity.AtDemand;
 import com.example.administrator.mydemo.entity.TestData;
 import com.example.administrator.mydemo.ui.mine.RegisterActivity;
 import com.example.administrator.mydemo.ui.plate.PlateFragment;
@@ -38,8 +39,7 @@ public class OfferFragment extends Fragment {
     private ListView listView;
     private ArrayList<TestData> tData = new ArrayList<TestData>();
     private ListViewAdapter lv;
-    private TextView textView2;
-
+    private List lists = new ArrayList();
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_offer, container, false);
     }
@@ -53,7 +53,9 @@ public class OfferFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "点击事件"+position+" "+id, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), DemandDetailActivity.class);
+                intent.putExtra("strId", lists.get(position).toString());
+                startActivity(intent);
             }
         });
     }
@@ -64,20 +66,21 @@ public class OfferFragment extends Fragment {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 String s = msg.obj.toString();
-                List<TestData> td = null;
+                List<AtDemand> list = new ArrayList<AtDemand>();
                 if(JsonUtil.IsJson(s)){
-                    td = JsonUtil.TestJson(s);
                     System.out.println("success");
+                    list = JsonUtil.toAtDemandList(s);
+                    for(AtDemand ad:list){
+                        lists.add(ad.getId());
+                    }
+                    lv = new ListViewAdapter(list,getActivity());
+                    listView.setAdapter(lv);
                 }else{
-                    td = getData();
                     System.out.println("fail");
+                    Toast.makeText(getActivity(), "网络异常", Toast.LENGTH_SHORT).show();
                 }
-                List<TestData> list = td;
-                lv = new ListViewAdapter(list,getActivity());
-                listView.setAdapter(lv);
             }
         };
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -87,7 +90,7 @@ public class OfferFragment extends Fragment {
                 OkHttpClient mOkHttpClient = new OkHttpClient();
                 //url
                 //      String url = "http://47.98.127.30:8080/Test/Servers?username=GR&password=8888";
-                String url = "http://47.98.127.30:8080/Test/find";
+                String url = "http://47.98.127.30:8080/XXFB/ShowRequire?demand=1";
                 //创建一个Request
                 final Request request = new Request.Builder()
                         .url(url)
@@ -98,12 +101,12 @@ public class OfferFragment extends Fragment {
                 mCall.enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        System.out.println("3");
+                        System.out.println("不行");
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-
+                        System.out.println("可以");
                         message.obj = response.body().string();
                         mHandler.sendMessage(message);
                     }

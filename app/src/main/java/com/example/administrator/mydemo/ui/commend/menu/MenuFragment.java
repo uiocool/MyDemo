@@ -1,6 +1,7 @@
 package com.example.administrator.mydemo.ui.commend.menu;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 import com.example.administrator.mydemo.R;
+import com.example.administrator.mydemo.ui.commend.DemandTermActivity;
 
 public class MenuFragment extends Fragment {
     @Override
@@ -38,17 +40,30 @@ public class MenuFragment extends Fragment {
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        Intent intent;
                         switch (item.getItemId()){
                             case R.id.i1:
+                                intent = new Intent(getActivity(), DemandTermActivity.class);
+                                intent.putExtra("id", 1);
+                                startActivity(intent);
                                 System.out.println("i1");
                                 break;
                             case R.id.i2:
+                                intent = new Intent(getActivity(), DemandTermActivity.class);
+                                intent.putExtra("id", 2);
+                                startActivity(intent);
                                 System.out.println("i2");
                                 break;
                             case R.id.i3:
+                                intent = new Intent(getActivity(), DemandTermActivity.class);
+                                intent.putExtra("id", 3);
+                                startActivity(intent);
                                 System.out.println("i3");
                                 break;
                             case R.id.i4:
+                                intent = new Intent(getActivity(), DemandTermActivity.class);
+                                intent.putExtra("id", 4);
+                                startActivity(intent);
                                 System.out.println("i4");
                                 break;
                         }

@@ -33,7 +33,6 @@ import com.example.administrator.mydemo.ui.commend.menu.MenuFragment;
 import com.example.administrator.mydemo.ui.mine.MineFragment;
 import com.example.administrator.mydemo.ui.mine.RegisterActivity;
 import com.example.administrator.mydemo.ui.plate.PlateFragment;
-import com.example.administrator.mydemo.util.NetUilts;
 
 import junit.framework.Test;
 

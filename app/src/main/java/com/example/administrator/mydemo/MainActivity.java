@@ -1,5 +1,6 @@
 package com.example.administrator.mydemo;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MineFragment mine;
     // 管理器
     private FragmentManager fm;
+    private UserApplication app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +53,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //注意该方法要再setContentView方法之前实现
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+        app = UserApplication.getInstance();
         fm = getFragmentManager();
         bindViews();
         txt_plate.performClick();
     }
 
-    private  void bindViews(){
+    private void bindViews(){
         txt_commend = (TextView) findViewById(R.id.txt_commend);
         txt_plate = (TextView) findViewById(R.id.txt_plate);
         txt_nearby = (TextView)findViewById(R.id.txt_nearby);
@@ -95,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(commend == null){
                     commend = new CommendFragment();
                     fTransaction.add(R.id.fl_content, commend);
-                    plate.onStop();
                 }
                 fTransaction.show(commend);
                 break;
@@ -106,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     plate = new PlateFragment();
                     fTransaction.add(R.id.fl_content, plate);
                 }
-                if(commend != null) commend.onStop();
                 fTransaction.show(plate);
                 break;
             case R.id.txt_nearby:

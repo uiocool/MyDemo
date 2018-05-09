@@ -11,6 +11,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
         <ImageButton
+            android:id="@+id/log_fh"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@color/transparent"
@@ -39,7 +40,7 @@
             android:layout_height="0dp"
             android:layout_weight="3">
             <EditText
-                android:id="@+id/login_name"
+                android:id="@+id/log_login_name"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -58,7 +59,7 @@
                 android:layout_weight="1">
             </LinearLayout>
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/log_password"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -89,7 +90,7 @@
                 android:textColor="@color/transparent"
                 android:textSize="18sp"/>
             <TextView
-                android:id="@+id/register"
+                android:id="@+id/to_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
