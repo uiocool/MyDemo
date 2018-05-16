@@ -20,9 +20,11 @@
     //鉴权所需该权限获取进程列表
     <uses-permission android:name="android.permission.CAMERA" />
     //使用步行AR导航，配置Camera权限
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 仅网络定位的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <!-- 获取网络访问权限 -->
-    <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
     <application
         android:name=".UserApplication"
         android:allowBackup="true"
@@ -38,7 +40,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" />
+            android:process=":remote"></service>
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -52,7 +54,8 @@
         <activity android:name=".ui.commend.DemandDetailActivity" />
         <activity android:name=".ui.commend.DemandTermActivity" />
         <activity android:name=".ui.plate.DemandAddActivity" />
-        <activity android:name=".ui.plate.MyDemandActivity"></activity>
+        <activity android:name=".ui.plate.MyDemandActivity" />
+        <activity android:name=".ui.plate.ReportActivity"></activity>
     </application>
 
 </manifest>

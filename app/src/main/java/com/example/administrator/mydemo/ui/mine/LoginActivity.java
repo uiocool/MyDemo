@@ -128,10 +128,12 @@ public class LoginActivity extends AppCompatActivity {
                     if(response.isSuccessful()){
                         message.obj = str;
                         mHandler.sendMessage(message);
+             //           Toast.makeText(LoginActivity.this, "连接不到网络", Toast.LENGTH_SHORT).show();
                         Looper.prepare();
                     }else{
                         message.obj = str;
                         mHandler.sendMessage(message);
+                        Toast.makeText(LoginActivity.this, "连接不到网络", Toast.LENGTH_SHORT).show();
                         Looper.prepare();
                     }
                 } catch (IOException e) {

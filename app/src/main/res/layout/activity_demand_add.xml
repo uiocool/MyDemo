@@ -118,6 +118,26 @@
                 android:background="@color/gray">
             </LinearLayout>
             <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+                <Button
+                    android:id="@+id/de_ad_bt"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:text="select"/>
+                <ImageView
+                    android:id="@+id/de_ad_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <!-- 分割线 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:background="@color/gray">
+            </LinearLayout>
+            <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">

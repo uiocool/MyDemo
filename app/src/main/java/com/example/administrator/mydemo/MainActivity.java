@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         app = UserApplication.getInstance();
         fm = getFragmentManager();
         bindViews();
-        txt_plate.performClick();
+        txt_commend.performClick();
     }
 
     private void bindViews(){
@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fTransaction.add(R.id.fl_content, plate);
                 }
                 fTransaction.show(plate);
+                plate.getData();
                 break;
             case R.id.txt_nearby:
                 setSelected();
@@ -145,6 +146,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 fTransaction.add(R.id.fl_content, mine);
             }
             fTransaction.show(mine);
+            fTransaction.commit();
+        }else if(id == 1){
+            FragmentTransaction fTransaction = fm.beginTransaction();
+            hideAllFragment(fTransaction);
+            setSelected();
+            txt_commend.setSelected(true);
+            if(commend == null){
+                commend = new CommendFragment();
+                fTransaction.add(R.id.fl_content, commend);
+            }
+            fTransaction.show(commend);
             fTransaction.commit();
         }
         super.onResume();

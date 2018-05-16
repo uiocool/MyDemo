@@ -84,21 +84,14 @@ public class RequireFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //创建Message对象
+
                 final Message message = new Message();
-                //创建okHttpClient对象
                 OkHttpClient mOkHttpClient = new OkHttpClient();
-                //url
-                //      String url = "http://47.98.127.30:8080/Test/Servers?username=GR&password=8888";
                 String url = "http://47.98.127.30:8080/XXFB/ShowRequire?demand=0";
-          //      RequestBody body = RequestBody.create(int, 0);
-                //创建一个Request
                 final Request request = new Request.Builder()
                         .url(url)
                         .build();
-                //new call
                 Call mCall = mOkHttpClient.newCall(request);
-                //请求加入调度
                 mCall.enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {

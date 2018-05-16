@@ -1,9 +1,13 @@
 package com.example.administrator.mydemo.ui.plate;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -21,6 +25,8 @@ import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -28,10 +34,12 @@ import okhttp3.Call;
 import com.example.administrator.mydemo.R;
 import com.example.administrator.mydemo.TestOkHttp;
 import com.example.administrator.mydemo.UserApplication;
+import com.example.administrator.mydemo.entity.AtDemand;
 import com.example.administrator.mydemo.entity.TestData;
 import com.example.administrator.mydemo.util.JsonUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -45,8 +53,8 @@ public class PlateFragment extends Fragment implements View.OnClickListener{
     private LinearLayout plate_5;
     private LinearLayout plate_6;
     private LinearLayout plate_7;
+    private UserApplication app = UserApplication.getInstance();
 
-    private UserApplication app;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +70,8 @@ public class PlateFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        app =  UserApplication.getInstance();
+        getData();
         bindViews();
-
     }
 
     private void bindViews(){
@@ -90,26 +96,115 @@ public class PlateFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         Intent intent1 = new Intent(getActivity(), DemandAddActivity.class);
         Intent intent2 = new Intent(getActivity(), MyDemandActivity.class);
+        Intent intent3 = new Intent(getActivity(), ReportActivity.class);
+        boolean b = false;
+        if(app.getAppTa() != null) b = true;
+//        System.out.println(!app.getAppTa().equals(""));
         switch (v.getId()){
             case R.id.plate_1:
-                intent1.putExtra("id", 0);
-                startActivity(intent1);
+                if(b) {
+                    intent1.putExtra("id", 0);
+                    startActivity(intent1);
+                }else {
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("警告")
+                            .setMessage("尚未登录")
+                            .setPositiveButton("确定", null)
+                            .show();
+                }
                 break;
             case R.id.plate_2:
-                intent1.putExtra("id", 1);
-                startActivity(intent1);
+                if(b) {
+                    intent1.putExtra("id", 1);
+                    startActivity(intent1);
+                }else {
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("警告")
+                            .setMessage("尚未登录")
+                            .setPositiveButton("确定", null)
+                            .show();
+                }
                 break;
             case R.id.plate_3:
                 startActivity(intent2);
                 break;
             case R.id.plate_4:
+                intent3.putExtra("id", 1);
+                startActivity(intent3);
                 break;
             case R.id.plate_5:
+                intent3.putExtra("id", 2);
+                startActivity(intent3);
                 break;
             case R.id.plate_6:
+                intent3.putExtra("id", 3);
+                startActivity(intent3);
                 break;
             case R.id.plate_7:
+                intent3.putExtra("id", 4);
+                startActivity(intent3);
                 break;
+        }
+    }
+
+    public void getData(){
+        final Handler mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                List<AtDemand> list = new ArrayList<AtDemand>();
+                String str = msg.obj.toString();
+                System.out.println(JsonUtil.IsJson(str));
+                if (JsonUtil.IsJson(str)) {
+                    System.out.println("success");
+                    list = JsonUtil.toAtDemandList(str);
+                    app.setAppAd(list);
+                    System.out.println(list.toString());
+                    System.out.println(app.getAppAd().toString());
+                    Toast.makeText(getActivity(), "获取成功", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //创建okHttpClient对象
+                OkHttpClient mOkHttpClient = new OkHttpClient();
+                String url = "http://47.98.127.30:8080/XXFB/DemandCountServlet";
+                //创建一个Request
+                final Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+                //new call
+                Call mCall = mOkHttpClient.newCall(request);
+                //请求加入调度
+                mCall.enqueue(new Callback() {
+                    Message message = new Message();
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        System.out.println("re fail");
+                        Looper.prepare();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        System.out.println("re success");
+                        message.obj = response.body().string();
+                        mHandler.sendMessage(message);
+                        Looper.prepare();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if(hidden){
+
+        }else {
+            getData();
         }
     }
 }

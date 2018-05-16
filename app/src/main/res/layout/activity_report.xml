@@ -14,7 +14,7 @@
             android:layout_width="50dp"
             android:layout_height="match_parent">
             <ImageButton
-                android:id="@+id/my_de_fh"
+                android:id="@+id/re_fh"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@color/transparent"
@@ -25,10 +25,10 @@
             android:layout_height="match_parent"
             android:layout_marginRight="50dp">
             <TextView
-                android:id="@+id/my_de_title"
+                android:id="@+id/re_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="我的发布"
+                android:text="统计报表"
                 android:gravity="center"
                 android:textSize="20dp"
                 android:textColor="@color/text"/>
@@ -43,13 +43,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <ListView
-            android:id="@+id/list_my_de"
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bar_chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </ListView>
-    </LinearLayout>
 
+        </com.github.mikephil.charting.charts.BarChart>
+    </LinearLayout>
 
 
 </LinearLayout>

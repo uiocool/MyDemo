@@ -42,6 +42,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/fr_mi_zhxx"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -82,6 +83,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/fr_mi_wdfb"
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <LinearLayout
@@ -121,6 +123,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/fr_mi_bbxx"
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <LinearLayout
@@ -158,5 +161,13 @@
         android:layout_height="5dp"
         android:background="@color/gray">
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/fr_mi_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 </LinearLayout>
