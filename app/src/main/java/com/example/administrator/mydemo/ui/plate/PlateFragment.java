@@ -95,8 +95,6 @@ public class PlateFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         Intent intent1 = new Intent(getActivity(), DemandAddActivity.class);
-        Intent intent2 = new Intent(getActivity(), MyDemandActivity.class);
-        Intent intent3 = new Intent(getActivity(), ReportActivity.class);
         boolean b = false;
         if(app.getAppTa() != null) b = true;
 //        System.out.println(!app.getAppTa().equals(""));
@@ -126,23 +124,22 @@ public class PlateFragment extends Fragment implements View.OnClickListener{
                 }
                 break;
             case R.id.plate_3:
-                startActivity(intent2);
                 break;
             case R.id.plate_4:
-                intent3.putExtra("id", 1);
-                startActivity(intent3);
+                Intent intent4 = new Intent(getActivity(), ReportActivity.class);
+                startActivity(intent4);
                 break;
             case R.id.plate_5:
-                intent3.putExtra("id", 2);
-                startActivity(intent3);
+                Intent intent5 = new Intent(getActivity(), ReportKindActivity.class);
+                startActivity(intent5);
                 break;
             case R.id.plate_6:
-                intent3.putExtra("id", 3);
-                startActivity(intent3);
+                Intent intent6 = new Intent(getActivity(), ReportAreaActivity.class);
+                startActivity(intent6);
                 break;
             case R.id.plate_7:
-                intent3.putExtra("id", 4);
-                startActivity(intent3);
+                Intent intent7 = new Intent(getActivity(), ReportPriceActivity.class);
+                startActivity(intent7);
                 break;
         }
     }

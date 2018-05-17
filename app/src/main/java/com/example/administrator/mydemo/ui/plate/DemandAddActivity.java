@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +15,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.administrator.mydemo.MainActivity;
 import com.example.administrator.mydemo.R;
 import com.example.administrator.mydemo.UserApplication;
 import com.example.administrator.mydemo.entity.AtDemand;
@@ -44,7 +48,7 @@ import okhttp3.Response;
 public class DemandAddActivity extends AppCompatActivity {
 
     private List<SpinnerBean> list;
-    private Spinner xiala;
+    private Spinner spin_kind;
     private int getIntent;
     private int demandId;
     private String kind;
@@ -59,16 +63,26 @@ public class DemandAddActivity extends AppCompatActivity {
     private String img;
     private AtDemand atDem;
     private UserApplication app;
+    private ImageButton de_ad_fh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demand_add);
         getIntent = getIntent().getIntExtra("id", -1);
-        xiala = (Spinner)findViewById(R.id.spin_kind);
+        spin_kind = (Spinner)findViewById(R.id.spin_kind);
         loadKind();
-        xiala.setOnItemSelectedListener(new xialaClickListener());
+        spin_kind.setOnItemSelectedListener(new xialaClickListener());
 
         bindViews();
+        de_ad_fh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DemandAddActivity.this, MainActivity.class);
+                intent.putExtra("id", 2);
+                startActivity(intent);
+            }
+        });
+
         de_ad_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,12 +97,7 @@ public class DemandAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 atDem = getAdData();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        addData(atDem, img);
-                    }
-                }).start();
+                addData(atDem, img);
             }
         });
     }
@@ -103,6 +112,8 @@ public class DemandAddActivity extends AppCompatActivity {
         de_ad_pr_et = (EditText)findViewById(R.id.de_ad_pr_et);
         de_ad_peo_et = (EditText)findViewById(R.id.de_ad_peo_et);
         de_ad_pho_et = (EditText)findViewById(R.id.de_ad_pho_et);
+
+        de_ad_fh = (ImageButton) findViewById(R.id.de_ad_fh);
     }
 
     private AtDemand getAdData(){
@@ -172,7 +183,7 @@ public class DemandAddActivity extends AppCompatActivity {
         list.add(model);
 
         SpinnerAdapter adapter = new SpinnerAdapter(DemandAddActivity.this, list, R.layout.xiala_item);
-        xiala.setAdapter(adapter);
+        spin_kind.setAdapter(adapter);
     }
 
     private class xialaClickListener implements AdapterView.OnItemSelectedListener{
@@ -197,51 +208,67 @@ public class DemandAddActivity extends AppCompatActivity {
     }
 
     private void addData(AtDemand atDemand, String str){
-        AtDemand ad = atDemand;
-    /*    List<AtDemand> list = new ArrayList<AtDemand>();
-        list.add(ad);
-        String json = new Gson().toJson(list);*/
-        OkHttpClient mOkHttpClient = new OkHttpClient();
+        final AtDemand ad = atDemand;
         String file = str;
         System.out.println(file);
-        File f = new File(file);
-        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-    //    builder.addFormDataPart("json", json, RequestBody.create(MediaType.parse("application/json;charset=utf-8"),json));
-
-            builder.addFormDataPart("id", ad.getId());
-            builder.addFormDataPart("kind", ad.getKind());
-            builder.addFormDataPart("title", ad.getTitle());
-            builder.addFormDataPart("content", ad.getContent());
-            builder.addFormDataPart("price", ad.getPrice().toString());
-            builder.addFormDataPart("people", ad.getCon_people());
-            builder.addFormDataPart("phone", ad.getCon_phone());
-            builder.addFormDataPart("demandId", String.valueOf(ad.getDemand()));
-            builder.addFormDataPart("userId", ad.getUserId());
-            builder.addFormDataPart("login_name", ad.getLogin_name());
-            builder.addFormDataPart("userName", ad.getUserName());
-            builder.addFormDataPart("img", f.getName(), RequestBody.create(MediaType.parse("image/*"), f));
-        //url
-        //      String url = "http://47.98.127.30:8080/Test/Servers?username=GR&password=8888";
-        String url = "http://47.98.127.30:8080/XXFB/DemandAddServlet";  //192.168.43.18
-        MultipartBody requestBody = builder.build();
-        //创建一个Request
-        final Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-        //new call
-        Call mCall = mOkHttpClient.newCall(request);
-        //请求加入调度
-        mCall.enqueue(new Callback() {
+        final File f = new File(file);
+        final Handler mHandler = new Handler(){
             @Override
-            public void onFailure(Call call, IOException e) {
-                System.out.println("失败");
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                String s = msg.obj.toString();
+         //       if("success".equals(s)){
+                    Toast.makeText(DemandAddActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(DemandAddActivity.this, MainActivity.class);
+                    intent.putExtra("id", 2);
+                    startActivity(intent);
+         //       }
             }
-
+        };
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                System.out.println("cg");
+            public void run() {
+                OkHttpClient mOkHttpClient = new OkHttpClient();
+
+                MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+                //    builder.addFormDataPart("json", json, RequestBody.create(MediaType.parse("application/json;charset=utf-8"),json));
+                builder.addFormDataPart("id", ad.getId());
+                builder.addFormDataPart("kind", ad.getKind());
+                builder.addFormDataPart("title", ad.getTitle());
+                builder.addFormDataPart("content", ad.getContent());
+                builder.addFormDataPart("price", ad.getPrice().toString());
+                builder.addFormDataPart("people", ad.getCon_people());
+                builder.addFormDataPart("phone", ad.getCon_phone());
+                builder.addFormDataPart("demandId", String.valueOf(ad.getDemand()));
+                builder.addFormDataPart("userId", ad.getUserId());
+                builder.addFormDataPart("login_name", ad.getLogin_name());
+                builder.addFormDataPart("userName", ad.getUserName());
+                builder.addFormDataPart("img", f.getName(), RequestBody.create(MediaType.parse("image/*"), f));
+                String url = "http://47.98.127.30:8080/XXFB/DemandAddServlet";  //192.168.43.18
+                MultipartBody requestBody = builder.build();
+                //创建一个Request
+                final Request request = new Request.Builder()
+                        .url(url)
+                        .post(requestBody)
+                        .build();
+                //new call
+                Call mCall = mOkHttpClient.newCall(request);
+                //请求加入调度
+                mCall.enqueue(new Callback() {
+                    Message message = new Message();
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        System.out.println("失败");
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        System.out.println("cg");
+                        message.obj = response.body().string();
+                        mHandler.sendMessage(message);
+                    }
+                });
             }
-        });
+        }).start();
     }
 }

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.example.administrator.mydemo.MainActivity;
 import com.example.administrator.mydemo.R;
@@ -48,6 +49,7 @@ public class DemandDetailActivity extends AppCompatActivity implements View.OnCl
     private ListView listView;
     private ListViewAdapter lv;
     private String strId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

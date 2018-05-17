@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,10 @@ public class OfferFragment extends Fragment {
     private ArrayList<TestData> tData = new ArrayList<TestData>();
     private ListViewAdapter lv;
     private List lists = new ArrayList();
+    private SwipeRefreshLayout fr_of_srl;
+
+    @Nullable
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_offer, container, false);
     }
@@ -56,6 +61,16 @@ public class OfferFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), DemandDetailActivity.class);
                 intent.putExtra("strId", lists.get(position).toString());
                 startActivity(intent);
+            }
+        });
+
+        fr_of_srl = (SwipeRefreshLayout)getView().findViewById(R.id.fr_of_srl);
+        fr_of_srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData();
+                lv.notifyDataSetChanged();
+                fr_of_srl.setRefreshing(false);
             }
         });
     }

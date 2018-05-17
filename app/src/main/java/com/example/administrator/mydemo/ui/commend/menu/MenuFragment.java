@@ -42,7 +42,7 @@ public class MenuFragment extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         Intent intent;
                         switch (item.getItemId()){
-                            case R.id.i1:
+                         /*   case R.id.i1:
                                 intent = new Intent(getActivity(), DemandTermActivity.class);
                                 intent.putExtra("id", 1);
                                 startActivity(intent);
@@ -66,6 +66,10 @@ public class MenuFragment extends Fragment {
                                 startActivity(intent);
                                 System.out.println("i4");
                                 break;
+                                */
+                            case R.id.i:
+                                intent = new Intent(getActivity(), DemandTermActivity.class);
+                                startActivity(intent);
                         }
                         return false;
                     }

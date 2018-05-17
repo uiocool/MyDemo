@@ -40,7 +40,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -55,7 +55,10 @@
         <activity android:name=".ui.commend.DemandTermActivity" />
         <activity android:name=".ui.plate.DemandAddActivity" />
         <activity android:name=".ui.plate.MyDemandActivity" />
-        <activity android:name=".ui.plate.ReportActivity"></activity>
+        <activity android:name=".ui.plate.ReportActivity" />
+        <activity android:name=".ui.plate.ReportKindActivity" />
+        <activity android:name=".ui.plate.ReportAreaActivity" />
+        <activity android:name=".ui.plate.ReportPriceActivity"></activity>
     </application>
 
 </manifest>

@@ -158,6 +158,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             fTransaction.show(commend);
             fTransaction.commit();
+        }else if(id == 2){
+            FragmentTransaction fTransaction = fm.beginTransaction();
+            hideAllFragment(fTransaction);
+            setSelected();
+            txt_plate.setSelected(true);
+            if(plate == null){
+                plate = new PlateFragment();
+                fTransaction.add(R.id.fl_content, plate);
+            }
+            fTransaction.show(plate);
+            fTransaction.commit();
         }
         super.onResume();
     }
