@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+      <item android:id="@+id/i1"
+       android:title="二手买卖"
+       android:orderInCategory="100"
+       app:showAsAction="never" />
+   <item android:id="@+id/i2"
+       android:title="旅游酒店"
+       android:orderInCategory="100"
+       app:showAsAction="never"/>
+   <item android:id="@+id/i3"
+       android:title="社区服务"
+       android:orderInCategory="100"
+       app:showAsAction="never"/>
+   <item android:id="@+id/i4"
+       android:title="休闲娱乐"
+       android:orderInCategory="100"
+       app:showAsAction="never"/>
+</menu>

@@ -3,21 +3,47 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+  <!--  <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/transparent">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6">
 
-    </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageButton
+                android:id="@+id/nearby_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_commend_menu"
+                android:background="@color/transparent"
+                android:scaleType="center"/>
+        </LinearLayout>
+    </LinearLayout>   -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9">
+        <!--
         <com.baidu.mapapi.map.MapView
             android:id="@+id/map"
             android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             </com.baidu.mapapi.map.MapView>
+            -->
+        <WebView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </WebView>
     </LinearLayout>
 </LinearLayout>

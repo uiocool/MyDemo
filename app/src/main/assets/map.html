@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+	body, html,#allmap {
+	    width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";
+	}
+	#sel{
+		width:100px;height:50px;margin-left: 200px;font-size:11pt;
+		color: #FACD22;background-color: #FFFFFF;
+	}
+	</style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=bwi8q1tgggLYIkRmaZY7vGvrZXw14eMG"></script>
+    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <title>地图展示</title>
+</head>
+<body onload="">
+    <div id="top" style="width:100px;height:50px;"> 
+    	<div id="left" style="float:left;width:60px;height:40px;">
+    		
+    	</div>
+        <div id="right" style="float:left;width:20px;height:40px;">
+            <select id="sel">
+                <option value ="1">二手买卖</option>
+                <option value ="2">旅游酒店</option>
+                <option value ="3">社区服务</option>
+                <option value ="4">休闲娱乐</option>
+            </select>
+        </div>
+    </div>
+    <div id="allmap">
+
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");    // 创建Map实例
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+	//添加地图类型控件
+	map.addControl(new BMap.MapTypeControl({
+		mapTypes:[
+            BMAP_NORMAL_MAP,
+            BMAP_HYBRID_MAP
+        ]}));	  
+	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    var geolocation = new BMap.Geolocation();
+    console.log("123456");
+    geolocation.getCurrentPosition(function(r) {
+        if(this.getStatus() == 0) {
+            console.log(r.point.lng+","+r.point.lat);
+            map.panTo(r.point);
+            var marker = new BMap.Marker(r.point); // 创建点
+            map.addOverlay(marker);
+        } else {
+            console.log('failed' + this.getStatus());
+        }
+    }, {
+        enableHighAccuracy: true
+    });
+
+    function testjs(){
+        console.log("士大夫撒大聲地不節哀順變號地塊");
+    }
+    function testjscz(arg){
+        console.log(arg);
+        return 1;
+    }
+    function testre(){
+        var result = "asdasdasdsda";
+        return result;
+    }
+
+
+    function getLocation(){
+    //    var k = $("#sel").val();
+    //    console.log(k);
+		$.ajax({
+			method:"post",
+			url:"http://47.98.127.30:8080/XXFB/AddrShowServlet",
+			dataType:"text",
+			data:"para=" + k,
+			success:function(data){
+				var data1 = eval("("+data+")");
+				$.each(data1,function(i,n){
+					console.log(n.longitude+", "+n.latitude);
+				});
+			}
+		});
+	}
+
+</script>

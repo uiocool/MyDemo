@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -13,9 +14,17 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.view.menu.MenuView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
+import android.webkit.JsResult;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -30,6 +39,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.example.administrator.mydemo.R;
+import com.example.administrator.mydemo.ui.commend.DemandTermActivity;
 
 import java.util.List;
 
@@ -42,37 +52,107 @@ public class NearbyFragment extends Fragment {
 
     private LocationManager locationManager;
     private String provider;
+    private WebView webView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        //     locationClient=new LocationClient(getActivity().getApplicationContext());
-        //     locationClient.registerLocationListener(new MyLocationListener());
-        SDKInitializer.initialize(getActivity().getApplicationContext());
-        return inflater.inflate(R.layout.fragment_nearby, container, false);
+//        SDKInitializer.initialize(getActivity().getApplicationContext());
+  //      mLocationClient=new LocationClient(getActivity().getApplicationContext());
+  //      mLocationClient.registerLocationListener(myListener);
+        View v = inflater.inflate(R.layout.fragment_nearby, container, false);
+    //    mapView =(MapView)v.findViewById(R.id.map);
+        return v;
     }
 
+    @SuppressLint("JavascriptInterface")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mLocationClient = new LocationClient(getActivity().getApplicationContext());
-        //声明LocationClient类
-        mLocationClient.registerLocationListener(myListener);
-        //注册监听函数
 
-        startLocation();
-     //   getLocation();
-
-        mapView = (MapView) getView().findViewById(R.id.map);
+   /*     startLocation();
         bm = mapView.getMap();
         bm.setMyLocationEnabled(true);
-   /*     LocationClient mLocationClient = new LocationClient(getActivity().getApplicationContext());
-        mLocationClient.registerLocationListener(new MyLocationListener());    //注册监听函数
-        mLocationClient.start();*/
-   //     System.out.println(m.latitude+","+m.longitude);
+*/
+        initViews();
+        initWeb();
+      //  initButton();
+        webView.addJavascriptInterface(getActivity(), "android");
+
+   //     webView.loadUrl("javascript:testjs()");
+     /*   webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                return super.onJsAlert(view, url, message, result);
+            }
+        });
+*/
     }
 
+    private void initViews(){
+        webView = (WebView)getView().findViewById(R.id.map);
+    }
 
+    private void initWeb(){
+        webView.loadUrl("file:///android_asset/map.html");
+        webView.getSettings().setJavaScriptEnabled(true);
+    }
+/*
+    private void initButton(){
+        ImageButton nearby_menu = (ImageButton)getView().findViewById(R.id.nearby_menu);
+        nearby_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(getActivity(), getView().findViewById(R.id.nearby_menu));
+                popup.getMenuInflater().inflate(R.menu.menu_nearby, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent intent;
+                        switch (item.getItemId()){
+                            case R.id.i1:
+                                webView.loadUrl("javascript:testjs()");
+                                System.out.println("i1");
+                                break;
+                            case R.id.i2:
+                                webView.loadUrl("javascript:testjscz("+"\'sd\'"+")");
+                                System.out.println("i2");
+                                break;
+                            case R.id.i3:
+                          //      webView.loadUrl("javascript:testre()");
+                          //      webView.addJavascriptInterface(new JsToJava(), "jss");
+                                webView.evaluateJavascript("javascript:testre()", new ValueCallback<String>() {
+                                    @Override
+                                    public void onReceiveValue(String value) {
+                                        System.out.println(value);
+                                    }
+                                });
+                                System.out.println("i3");
+                                break;
+                            case R.id.i4:
+                                System.out.println("i4");
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popup.show();
+            }
+        });
+    }
+*/
+    private class JsToJava{
+        @JavascriptInterface
+        public void jsMethod(String paramFromJS){
+            System.out.println("js返回结果:" + paramFromJS);//处理返回的结果
+        }
+    }
 /*
     private void getLocation() {
         //获取定位服务
@@ -103,7 +183,13 @@ public class NearbyFragment extends Fragment {
 */
     private void startLocation(){
         initLocation();
+        System.out.println("startLocation");
         mLocationClient.start();
+        System.out.println(mLocationClient.isStarted());
+    }
+
+    public void showIsStrart(){
+        System.out.println(mLocationClient.isStarted());
     }
 
     private void initLocation(){
@@ -111,10 +197,11 @@ public class NearbyFragment extends Fragment {
         option.setOpenGps(true);// 打开gps
         option.setCoorType("bd09ll"); // 设置坐标类型
         option.setScanSpan(5000);
+        System.out.println("initLocation");
         mLocationClient.setLocOption(option);
     }
 
-    public class MyLocationListener implements BDLocationListener {
+    public class MyLocationListener extends BDAbstractLocationListener {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
@@ -193,6 +280,12 @@ public class NearbyFragment extends Fragment {
 
 
         public void onConnectHotSpotMessage(String s, int i) {
+            System.out.println("onConnectHotSpotMessage");
+
+        }
+
+        public void onLocDiagnosticMessage(int locType, int diagnosticType, java.lang.String diagnosticMessage) {
+            System.out.println("onLocDiagnosticMessage");
 
         }
     }
