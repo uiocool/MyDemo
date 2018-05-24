@@ -16,20 +16,7 @@
     <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
     <title>地图展示</title>
 </head>
-<body onload="">
-    <div id="top" style="width:100px;height:50px;"> 
-    	<div id="left" style="float:left;width:60px;height:40px;">
-    		
-    	</div>
-        <div id="right" style="float:left;width:20px;height:40px;">
-            <select id="sel">
-                <option value ="1">二手买卖</option>
-                <option value ="2">旅游酒店</option>
-                <option value ="3">社区服务</option>
-                <option value ="4">休闲娱乐</option>
-            </select>
-        </div>
-    </div>
+<body>
     <div id="allmap">
 
     </div>
@@ -48,10 +35,14 @@
 	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
 	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
     var geolocation = new BMap.Geolocation();
-    console.log("123456");
+
+    var longitude;
+    var latitude;
     geolocation.getCurrentPosition(function(r) {
         if(this.getStatus() == 0) {
             console.log(r.point.lng+","+r.point.lat);
+            longitude = r.point.lng;
+            latitude = r.point.lat;
             map.panTo(r.point);
             var marker = new BMap.Marker(r.point); // 创建点
             map.addOverlay(marker);
@@ -62,34 +53,35 @@
         enableHighAccuracy: true
     });
 
-    function testjs(){
-        console.log("士大夫撒大聲地不節哀順變號地塊");
-    }
-    function testjscz(arg){
-        console.log(arg);
-        return 1;
-    }
-    function testre(){
-        var result = "asdasdasdsda";
-        return result;
+    function getLongitude(){
+        return longitude;
     }
 
+    function getLatitude(){
+        return latitude;
+    }
 
-    function getLocation(){
+    function getLocation(arg){
     //    var k = $("#sel").val();
-    //    console.log(k);
+        var k = arg;
+        console.log(k);
 		$.ajax({
 			method:"post",
 			url:"http://47.98.127.30:8080/XXFB/AddrShowServlet",
 			dataType:"text",
 			data:"para=" + k,
 			success:function(data){
+			    console.log(data);
 				var data1 = eval("("+data+")");
-				$.each(data1,function(i,n){
-					console.log(n.longitude+", "+n.latitude);
-				});
+				map.clearOverlays();
+				for(var i = 0;i<data1.length;i++){
+                    console.log(data1[i].longitude+","+data1[i].latitude);
+				    var mk =  new BMap.Marker(new BMap.Point(data1[i].longitude, data1[i].latitude));
+				    map.addOverlay(mk);
+				}
 			}
 		});
 	}
+//	getLocation();
 
 </script>

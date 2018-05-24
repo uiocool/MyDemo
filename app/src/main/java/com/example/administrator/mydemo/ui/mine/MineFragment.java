@@ -86,7 +86,8 @@ public class MineFragment extends Fragment {
         fr_mi_bbxx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), VersionActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -94,7 +95,7 @@ public class MineFragment extends Fragment {
     private void bindViews(){
         app = UserApplication.getInstance();
         fr_mi_lo_us = (TextView) getView().findViewById(R.id.fr_mi_lo_us);
-        fr_mi_zhxx = (LinearLayout) getView().findViewById(R.id.fr_mi_zhxx);
+  //      fr_mi_zhxx = (LinearLayout) getView().findViewById(R.id.fr_mi_zhxx);
         fr_mi_wdfb = (LinearLayout) getView().findViewById(R.id.fr_mi_wdfb);
         fr_mi_bbxx = (LinearLayout)getView().findViewById(R.id.fr_mi_bbxx);
         fr_mi_iv = (ImageView) getView().findViewById(R.id.fr_mi_iv);

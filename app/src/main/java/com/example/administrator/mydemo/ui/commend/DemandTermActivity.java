@@ -7,16 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.administrator.mydemo.MainActivity;
 import com.example.administrator.mydemo.R;
 import com.example.administrator.mydemo.commend.ListViewAdapter;
 import com.example.administrator.mydemo.entity.AtDemand;
 import com.example.administrator.mydemo.entity.TestData;
 import com.example.administrator.mydemo.plate.SpinnerAdapter;
 import com.example.administrator.mydemo.plate.SpinnerBean;
+import com.example.administrator.mydemo.ui.mine.LoginActivity;
 import com.example.administrator.mydemo.ui.plate.DemandAddActivity;
 import com.example.administrator.mydemo.util.JsonUtil;
 
@@ -39,6 +42,7 @@ public class DemandTermActivity extends AppCompatActivity {
     private List<SpinnerBean> list2;
     private List<SpinnerBean> list3;
     private List<SpinnerBean> list4;
+    private ImageButton de_te_fh;
     private Spinner spinner1;
     private Spinner spinner2;
     private Spinner spinner3;
@@ -55,6 +59,15 @@ public class DemandTermActivity extends AppCompatActivity {
         setContentView(R.layout.activity_demand_term);
 
         initViews();
+        de_te_fh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DemandTermActivity.this, MainActivity.class);
+                intent.putExtra("id", 1);
+                startActivity(intent);
+            }
+        });
+
         listView = (ListView)findViewById(R.id.list_term);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,6 +83,7 @@ public class DemandTermActivity extends AppCompatActivity {
     }
 
     private void initViews(){
+        de_te_fh = (ImageButton)findViewById(R.id.de_te_fh);
     //    spinner1 = (Spinner) findViewById(R.id.spinner1);
         spinner2 = (Spinner) findViewById(R.id.spinner2);
         spinner3 = (Spinner) findViewById(R.id.spinner3);

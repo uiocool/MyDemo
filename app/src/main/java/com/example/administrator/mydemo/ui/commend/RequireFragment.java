@@ -65,7 +65,7 @@ public class RequireFragment extends Fragment {
             @Override
             public void onRefresh() {
                 initData();
-                lv.notifyDataSetChanged();
+           //     lv.notifyDataSetChanged();
                 fr_re_srl.setRefreshing(false);
             }
         });
@@ -129,12 +129,5 @@ public class RequireFragment extends Fragment {
         }else{
             initData();
         }
-    }
-
-    public  ArrayList<TestData> getData(){
-        for(int i =0; i<20; i++){
-            tData.add(new TestData(i,"aa","ff"));
-        }
-        return  tData;
     }
 }

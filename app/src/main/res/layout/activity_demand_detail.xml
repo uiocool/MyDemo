@@ -49,7 +49,14 @@
                 android:gravity="center_vertical|left"
                 android:textSize="25dp"
                 android:textStyle="bold"
-                android:textColor="@color/text"/>
+                android:textColor="@color/text"
+                android:paddingLeft="10dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray">
+
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -61,13 +68,15 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_vertical|left"/>
+                android:gravity="center_vertical|left"
+                android:paddingLeft="10dp"/>
             <TextView
                 android:id="@+id/de_de_date"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_vertical|left"/>
+                android:gravity="center_vertical|left"
+                android:paddingRight="10dp"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -77,7 +86,14 @@
             android:id="@+id/de_de_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical|left"/>
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray">
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,7 +103,9 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:textSize="20dp"
-            android:textColor="@color/text"/>
+            android:textColor="@color/text"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,9 +116,51 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray">
+
+    </LinearLayout>
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/de_de_pr1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="价      格"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/de_de_pr2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical|left"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/de_de_ad1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="地      区"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/de_de_ad2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical|left"/>
+        </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

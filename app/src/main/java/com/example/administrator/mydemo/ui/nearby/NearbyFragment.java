@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.wifi.aware.DiscoverySession;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.view.menu.MenuView;
@@ -23,8 +26,10 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -39,6 +44,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.example.administrator.mydemo.R;
+import com.example.administrator.mydemo.UserApplication;
 import com.example.administrator.mydemo.ui.commend.DemandTermActivity;
 
 import java.util.List;
@@ -53,6 +59,10 @@ public class NearbyFragment extends Fragment {
     private LocationManager locationManager;
     private String provider;
     private WebView webView;
+    private Button nearby_addr;
+    private TextView nearby_select;
+
+    private UserApplication app = UserApplication.getInstance();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,7 +92,7 @@ public class NearbyFragment extends Fragment {
 */
         initViews();
         initWeb();
-      //  initButton();
+        initButton();
         webView.addJavascriptInterface(getActivity(), "android");
 
    //     webView.loadUrl("javascript:testjs()");
@@ -93,17 +103,49 @@ public class NearbyFragment extends Fragment {
             }
         });
 */
+        nearby_addr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                webView.evaluateJavascript("javascript:getLongitude()", new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String value) {
+                        app.setLongitude(Double.parseDouble(value));
+                        System.out.println(value);
+                    }
+                });
+                webView.evaluateJavascript("javascript:getLatitude()", new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String value) {
+                        app.setLatitude(Double.parseDouble(value));
+                        System.out.println(value);
+                    }
+                });
+            }
+        });
+
     }
 
     private void initViews(){
         webView = (WebView)getView().findViewById(R.id.map);
+        nearby_addr = (Button) getView().findViewById(R.id.nearby_addr);
+        nearby_select = (TextView) getView().findViewById(R.id.nearby_select);
     }
 
     private void initWeb(){
         webView.loadUrl("file:///android_asset/map.html");
         webView.getSettings().setJavaScriptEnabled(true);
     }
-/*
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if(hidden){
+
+        }else{
+            initWeb();
+        }
+    }
+
+
     private void initButton(){
         ImageButton nearby_menu = (ImageButton)getView().findViewById(R.id.nearby_menu);
         nearby_menu.setOnClickListener(new View.OnClickListener() {
@@ -117,25 +159,25 @@ public class NearbyFragment extends Fragment {
                         Intent intent;
                         switch (item.getItemId()){
                             case R.id.i1:
-                                webView.loadUrl("javascript:testjs()");
+                                webView.loadUrl("javascript:getLocation("+"\'1\'"+")");
+                                nearby_select.setText("二手买卖");
                                 System.out.println("i1");
                                 break;
                             case R.id.i2:
-                                webView.loadUrl("javascript:testjscz("+"\'sd\'"+")");
+                                webView.loadUrl("javascript:getLocation("+"\'2\'"+")");
+                                nearby_select.setText("旅游酒店");
                                 System.out.println("i2");
                                 break;
                             case R.id.i3:
-                          //      webView.loadUrl("javascript:testre()");
-                          //      webView.addJavascriptInterface(new JsToJava(), "jss");
-                                webView.evaluateJavascript("javascript:testre()", new ValueCallback<String>() {
-                                    @Override
-                                    public void onReceiveValue(String value) {
-                                        System.out.println(value);
-                                    }
-                                });
+                                //      webView.loadUrl("javascript:testre()");
+                                //      webView.addJavascriptInterface(new JsToJava(), "jss");
+                                webView.loadUrl("javascript:getLocation("+"\'3\'"+")");
+                                nearby_select.setText("社区服务");
                                 System.out.println("i3");
                                 break;
                             case R.id.i4:
+                                webView.loadUrl("javascript:getLocation("+"\'4\'"+")");
+                                nearby_select.setText("休闲娱乐");
                                 System.out.println("i4");
                                 break;
                         }
@@ -146,13 +188,13 @@ public class NearbyFragment extends Fragment {
             }
         });
     }
-*/
+      /*
     private class JsToJava{
         @JavascriptInterface
         public void jsMethod(String paramFromJS){
             System.out.println("js返回结果:" + paramFromJS);//处理返回的结果
         }
-    }
+    }*/
 /*
     private void getLocation() {
         //获取定位服务

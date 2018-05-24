@@ -48,7 +48,7 @@ public class PlateFragment extends Fragment implements View.OnClickListener{
 
     private LinearLayout plate_1;
     private LinearLayout plate_2;
-    private LinearLayout plate_3;
+  //  private LinearLayout plate_3;
     private LinearLayout plate_4;
     private LinearLayout plate_5;
     private LinearLayout plate_6;
@@ -77,7 +77,7 @@ public class PlateFragment extends Fragment implements View.OnClickListener{
     private void bindViews(){
         plate_1 = (LinearLayout) getView().findViewById(R.id.plate_1);
         plate_2 = (LinearLayout) getView().findViewById(R.id.plate_2);
-        plate_3 = (LinearLayout) getView().findViewById(R.id.plate_3);
+   //     plate_3 = (LinearLayout) getView().findViewById(R.id.plate_3);
         plate_4 = (LinearLayout) getView().findViewById(R.id.plate_4);
         plate_5 = (LinearLayout) getView().findViewById(R.id.plate_5);
         plate_6 = (LinearLayout) getView().findViewById(R.id.plate_6);
@@ -85,7 +85,7 @@ public class PlateFragment extends Fragment implements View.OnClickListener{
 
         plate_1.setOnClickListener(this);
         plate_2.setOnClickListener(this);
-        plate_3.setOnClickListener(this);
+ //       plate_3.setOnClickListener(this);
         plate_4.setOnClickListener(this);
         plate_5.setOnClickListener(this);
         plate_6.setOnClickListener(this);
@@ -123,8 +123,8 @@ public class PlateFragment extends Fragment implements View.OnClickListener{
                             .show();
                 }
                 break;
-            case R.id.plate_3:
-                break;
+         //   case R.id.plate_3:
+          //      break;
             case R.id.plate_4:
                 Intent intent4 = new Intent(getActivity(), ReportActivity.class);
                 startActivity(intent4);

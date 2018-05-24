@@ -69,7 +69,7 @@ public class OfferFragment extends Fragment {
             @Override
             public void onRefresh() {
                 initData();
-                lv.notifyDataSetChanged();
+          //      lv.notifyDataSetChanged();
                 fr_of_srl.setRefreshing(false);
             }
         });

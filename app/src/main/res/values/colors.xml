@@ -10,4 +10,5 @@
     <color name="login_button">#FF3030</color>
     <color name="hint">#CDC1C5</color>
     <color name="green">#00FF00</color>
+    <color name="getAddr">#5CACEE</color>
 </resources>

@@ -58,7 +58,8 @@
         <activity android:name=".ui.plate.ReportActivity" />
         <activity android:name=".ui.plate.ReportKindActivity" />
         <activity android:name=".ui.plate.ReportAreaActivity" />
-        <activity android:name=".ui.plate.ReportPriceActivity"></activity>
+        <activity android:name=".ui.plate.ReportPriceActivity" />
+        <activity android:name=".ui.mine.VersionActivity"></activity>
     </application>
 
 </manifest>

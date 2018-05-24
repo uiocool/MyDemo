@@ -71,7 +71,7 @@ public class MineListViewAdapter extends BaseAdapter {
             holder.mi_title = (TextView)convertView.findViewById(R.id.mi_title);
             holder.mi_kind = (TextView)convertView.findViewById(R.id.mi_kind);
             holder.mi_date = (TextView)convertView.findViewById(R.id.mi_date);
-            holder.mi_bj = (Button)convertView.findViewById(R.id.mi_bj);
+      //      holder.mi_bj = (Button)convertView.findViewById(R.id.mi_bj);
             holder.mi_sc = (Button)convertView.findViewById(R.id.mi_sc);
             convertView.setTag(holder);
         }else{
@@ -81,7 +81,7 @@ public class MineListViewAdapter extends BaseAdapter {
         holder.mi_title.setText(ad.get(position).getTitle());
         holder.mi_kind.setText(ad.get(position).getKind());
         holder.mi_date.setText(String.valueOf(ad.get(position).getCreate_date()));
-        holder.mi_bj.setTag(position);
+    //    holder.mi_bj.setTag(position);
         holder.mi_sc.setTag(position);
         holder.mi_sc.setOnClickListener(new View.OnClickListener() {
             @Override

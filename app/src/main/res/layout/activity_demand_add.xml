@@ -125,7 +125,9 @@
                     android:id="@+id/de_ad_bt"
                     android:layout_width="200dp"
                     android:layout_height="50dp"
-                    android:text="select"/>
+                    android:text="选择图片"
+                    android:background="@color/blue"
+                    android:textColor="@color/getAddr"/>
                 <ImageView
                     android:id="@+id/de_ad_iv"
                     android:layout_width="wrap_content"
@@ -150,6 +152,31 @@
                     android:textSize="18dp"/>
                 <EditText
                     android:id="@+id/de_ad_pr_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edit_bg"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+            <!-- 分割线 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:background="@color/gray">
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">>
+                <TextView
+                    android:id="@+id/de_ad_addr"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:text="地址"
+                    android:gravity="center_vertical|right"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorAccent"/>
+                <EditText
+                    android:id="@+id/de_ad_addr_et"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/edit_bg"

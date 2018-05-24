@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/transparent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/transparent">
+    android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -19,17 +21,17 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_minef_00"/>
+                    android:src="@drawable/ic_app"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="200dp"
                 android:layout_height="40dp">
                 <TextView
-                    android:id="@+id/fr_mi_lo_us"
+                    android:id="@+id/ver_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="点击登录"
+                    android:text="需求信息发布系统"
                     android:textSize="18dp"
                     android:textColor="@color/blue"/>
             </LinearLayout>
@@ -41,26 +43,15 @@
         android:background="@color/gray">
 
     </LinearLayout>
-    <!--<LinearLayout
-        android:id="@+id/fr_mi_zhxx"
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_minef_01"/>
-        </LinearLayout>
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:layout_height="match_parent"
-            android:text="账号信息"
+            android:text="应用版本"
             android:gravity="center_vertical|left"
             android:textSize="18dp"
             android:paddingLeft="10dp"
@@ -70,12 +61,15 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:gravity="center">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_right_arrow"/>
+            <TextView
+                android:id="@+id/ver_no"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:textSize="18dp"
+                android:paddingRight="10dp"/>
         </LinearLayout>
-    </LinearLayout>-->
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="5dp"
@@ -83,37 +77,31 @@
 
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/fr_mi_wdfb"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_minef_02"/>
-        </LinearLayout>
         <TextView
+            android:id="@+id/ver_dev"
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="match_parent"
-            android:text="我的发布"
+            android:text="开发者"
             android:gravity="center_vertical|left"
             android:textSize="18dp"
             android:paddingLeft="10dp"
             android:textColor="@color/text"/>
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_height="match_parent"
             android:gravity="center">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_right_arrow"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="赵正昇"
+                android:gravity="right|center_vertical"
+                android:textSize="18dp"
+                android:paddingRight="10dp"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -123,37 +111,31 @@
 
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/fr_mi_bbxx"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_minef_03"/>
-        </LinearLayout>
         <TextView
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="match_parent"
-            android:text="版本信息"
+            android:text="更新日期"
             android:gravity="center_vertical|left"
             android:textSize="18dp"
             android:paddingLeft="10dp"
             android:textColor="@color/text"/>
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_height="match_parent"
             android:gravity="center">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_right_arrow"/>
+            <TextView
+                android:id="@+id/ver_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="2018.5.24"
+                android:gravity="right|center_vertical"
+                android:textSize="18dp"
+                android:paddingRight="10dp"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -164,10 +146,19 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/fr_mi_iv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        android:layout_height="150dp">
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        <Button
+            android:id="@+id/ver_bt"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="返     回"
+            android:textColor="@color/transparent"
+            android:background="@color/login_button"/>
     </LinearLayout>
 </LinearLayout>

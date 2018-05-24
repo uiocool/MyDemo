@@ -41,6 +41,8 @@ public class DemandDetailActivity extends AppCompatActivity implements View.OnCl
     private TextView de_de_date;
     private TextView de_de_user;
     private TextView de_de_con;
+    private TextView de_de_pr2;
+    private TextView de_de_ad2;
     private TextView de_de_men1;
     private TextView de_de_men2;
     private TextView de_de_pho1;
@@ -75,6 +77,8 @@ public class DemandDetailActivity extends AppCompatActivity implements View.OnCl
         de_de_date = (TextView)findViewById(R.id.de_de_date);
         de_de_user = (TextView)findViewById(R.id.de_de_user);
         de_de_con = (TextView)findViewById(R.id.de_de_con);
+        de_de_pr2 = (TextView)findViewById(R.id.de_de_pr2);
+        de_de_ad2 = (TextView)findViewById(R.id.de_de_ad2);
         de_de_men1 = (TextView)findViewById(R.id.de_de_men1);
         de_de_men2 = (TextView)findViewById(R.id.de_de_men2);
         de_de_pho1 = (TextView)findViewById(R.id.de_de_pho1);
@@ -105,6 +109,8 @@ public class DemandDetailActivity extends AppCompatActivity implements View.OnCl
                     de_de_date.setText(ad.getCreate_date().toString());
                     de_de_user.setText(ad.getUserName());
                     de_de_con.setText(ad.getContent());
+                    de_de_pr2.setText(ad.getPrice().toString());
+                    de_de_ad2.setText(ad.getArea());
                     de_de_men2.setText(ad.getCon_people());
                     de_de_pho2.setText(ad.getCon_phone());
                     getImg(ad.getImg());

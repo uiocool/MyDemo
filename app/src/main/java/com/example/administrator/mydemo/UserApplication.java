@@ -15,6 +15,24 @@ public class UserApplication extends Application {
     private String value;
     private TabAccount appTa;
     private List<AtDemand> appAd;
+    private double longitude;
+    private double latitude;
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
     public List<AtDemand> getAppAd() {
         return appAd;
@@ -51,6 +69,8 @@ public class UserApplication extends Application {
         setAppTa(null);
         setAppAd(null);
         singleton = this;
+        setLongitude(0.0);
+        setLatitude(0.0);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.administrator.mydemo.ui.plate;
 
+import android.annotation.SuppressLint;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,6 +13,8 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.ValueCallback;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,6 +60,7 @@ public class DemandAddActivity extends AppCompatActivity {
     private EditText de_ad_ti_et;
     private EditText de_ad_cont;
     private EditText de_ad_pr_et;
+    private EditText de_ad_addr_et;
     private EditText de_ad_peo_et;
     private EditText de_ad_pho_et;
     private ImageView de_ad_iv;
@@ -98,6 +102,7 @@ public class DemandAddActivity extends AppCompatActivity {
             public void onClick(View v) {
                 atDem = getAdData();
                 addData(atDem, img);
+           //     addAddr(atDem);
             }
         });
     }
@@ -110,6 +115,7 @@ public class DemandAddActivity extends AppCompatActivity {
         de_ad_ti_et = (EditText)findViewById(R.id.de_ad_ti_et);
         de_ad_cont = (EditText)findViewById(R.id.de_ad_cont);
         de_ad_pr_et = (EditText)findViewById(R.id.de_ad_pr_et);
+        de_ad_addr_et = (EditText)findViewById(R.id.de_ad_addr_et);
         de_ad_peo_et = (EditText)findViewById(R.id.de_ad_peo_et);
         de_ad_pho_et = (EditText)findViewById(R.id.de_ad_pho_et);
 
@@ -121,6 +127,7 @@ public class DemandAddActivity extends AppCompatActivity {
         String title = de_ad_ti_et.getText().toString();
         String content = de_ad_cont.getText().toString();
         BigDecimal price = new BigDecimal(de_ad_pr_et.getText().toString());
+        String addr = de_ad_addr_et.getText().toString();
         String people = de_ad_peo_et.getText().toString();
         String phone = de_ad_pho_et.getText().toString();
         demandId = getIntent;
@@ -132,6 +139,7 @@ public class DemandAddActivity extends AppCompatActivity {
         atDemand.setTitle(title);
         atDemand.setContent(content);
         atDemand.setPrice(price);
+        atDemand.setArea(addr);
         atDemand.setCon_people(people);
         atDemand.setCon_phone(phone);
         atDemand.setDemand(demandId);
@@ -237,12 +245,15 @@ public class DemandAddActivity extends AppCompatActivity {
                 builder.addFormDataPart("title", ad.getTitle());
                 builder.addFormDataPart("content", ad.getContent());
                 builder.addFormDataPart("price", ad.getPrice().toString());
+                builder.addFormDataPart("area", ad.getArea());
                 builder.addFormDataPart("people", ad.getCon_people());
                 builder.addFormDataPart("phone", ad.getCon_phone());
                 builder.addFormDataPart("demandId", String.valueOf(ad.getDemand()));
                 builder.addFormDataPart("userId", ad.getUserId());
                 builder.addFormDataPart("login_name", ad.getLogin_name());
                 builder.addFormDataPart("userName", ad.getUserName());
+                builder.addFormDataPart("longitude", Double.toString(app.getLongitude()));
+                builder.addFormDataPart("latitude", Double.toString(app.getLatitude()));
                 builder.addFormDataPart("img", f.getName(), RequestBody.create(MediaType.parse("image/*"), f));
                 String url = "http://47.98.127.30:8080/XXFB/DemandAddServlet";  //192.168.43.18
                 MultipartBody requestBody = builder.build();
@@ -270,5 +281,48 @@ public class DemandAddActivity extends AppCompatActivity {
                 });
             }
         }).start();
+
+
     }
+/*
+    private void addAddr(AtDemand atDemand){
+        final AtDemand ad = atDemand;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("没有执行");
+                OkHttpClient mOkHttpClient = new OkHttpClient();
+                MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+                builder.addFormDataPart("id", ad.getId());
+                builder.addFormDataPart("kind", ad.getKind());
+                builder.addFormDataPart("longitude", Double.toString(app.getLongitude()));
+                builder.addFormDataPart("latitude", Double.toString(app.getLatitude()));
+                builder.addFormDataPart("area", ad.getArea());
+                String url = "http://47.98.127.30:8080/XXFB/AddrAddServlet";  //192.168.43.18
+                MultipartBody requestBody = builder.build();
+                //创建一个Request
+                final Request request = new Request.Builder()
+                        .url(url)
+                        .post(requestBody)
+                        .build();
+                //new call
+                Call mCall = mOkHttpClient.newCall(request);
+                //请求加入调度
+                mCall.enqueue(new Callback() {
+                    Message message = new Message();
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        System.out.println("失3败");
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        System.out.println("c5g");
+                        //       message.obj = response.body().string();
+                        //      mHandler.sendMessage(message);
+                    }
+                });
+            }
+        }).start();
+    }*/
 }
